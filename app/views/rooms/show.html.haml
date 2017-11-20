@@ -1,0 +1,8 @@
+%h1 Chat room
+%h2 Messages
+#messages{'data-room-id': @room.id}
+  = render @messages
+%form
+  %label Say something:
+  %br/
+  %input{"data-behavior" => "room_speaker", type: "text"}/

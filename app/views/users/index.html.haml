@@ -1,0 +1,12 @@
+%h2 USERS
+%table
+  %tr
+    %th id
+    %th email
+    %th actions
+  - @users.each do |user|
+    %tr
+      %td= user.id
+      %td= link_to user.email, chat_path(user.id)
+      %td
+        = friendship_actions(current_user, user)

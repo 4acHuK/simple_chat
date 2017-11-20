@@ -1,0 +1,35 @@
+%h2= @user.email
+%h3 Your friends:
+%table
+  - if @user.friends.present?
+    %tr
+      %th id
+      %th email
+      %th actions
+    - @user.friends.each do |friend|
+      %tr
+        %td= friend.id
+        %td= link_to friend.email, chat_path(friend.id)
+        %td
+          = link_to "remove friendship", friendship_action_user_path(id: params[:id], friend_id: friend.id,
+                                                                   action_type: 'remove_friend')
+  - else
+    %td You have no friends
+%h3 Requested friends:
+%table
+  - if @user.requested_friends.present?
+    %tr
+      %th id
+      %th email
+      %th actions
+    - @user.requested_friends.each do |requested_friend|
+      %tr
+        %td= requested_friend.id
+        %td= link_to requested_friend.email, chat_path(requested_friend.id)
+        %td
+          = link_to "accept friendship", friendship_action_user_path(id: params[:id], friend_id: requested_friend.id,
+                                                                     action_type: 'accept_request')
+          = link_to "decline friendship", friendship_action_user_path(id: params[:id], friend_id: requested_friend.id,
+                                                                action_type: 'decline_request')
+  - else
+    %td There are no friendship requests
